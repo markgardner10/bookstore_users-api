@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/markgardner10/bookstore_users-api/utils/errors"
+	"github.com/markgardner10/bookstore_users-api/utils/date_utils"
 )
 
 var (
@@ -32,6 +33,8 @@ func (user *User) Save() *errors.RestErr {
 				return errors.NewBadRequestError(fmt.Sprintf("email address %s already registered", user.Email))
 			}
 		}
+		
+		user.DateCreated = date_utils.GetNowString()
 		usersDB[user.ID] = user
 		return nil
 	}
